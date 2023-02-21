@@ -2077,7 +2077,9 @@ function AppMeasurement(account) {
 		// s.logDebug(`[track] optIn: ${JSON.stringify(optIn)}`);
 		if (optIn) {
 			if (!s._doneWaitingForOptInPermissions && !s._waitingForOptInPermissions) {
-				optIn["fetchPermissions"](s._optInFetchPermissionsCallback, true);
+				const fetchPermissions = optIn["fetchPermissions"];
+				debugger;
+				fetchPermissions(s._optInFetchPermissionsCallback, true);
 				s._waitingForOptInPermissions = true;
 				return false;
 			} else if (s._doneWaitingForOptInPermissions) {
