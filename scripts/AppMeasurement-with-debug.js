@@ -2296,7 +2296,9 @@ function AppMeasurement(account) {
 
 		// Apply variable overrides
 		if (variableOverrides) {
+			s.logDebug("[track] applying variable overrides");
 			variableOverridesBackup = s.variableOverridesApply(variableOverrides, 1);
+			s.logDebug("[track] applied variable overrides");
 		}
 
 		const isInSample = s.isVisitorInSample();
