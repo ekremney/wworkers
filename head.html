@@ -3,14 +3,19 @@
 <script src="/scripts/scripts.js" type="module"></script>
 <link rel="stylesheet" href="/styles/styles.css"/>
 <link rel="icon" href="data:,">
-<!-- Hotjar Tracking Code for https://main--wworkers--ekremney.hlx.live/ -->
-<script type="text/partytown">
-  (function(h,o,t,j,a,r){
-    h.hj=h.hj||function(){(h.hj.q=h.hj.q||[]).push(arguments)};
-    h._hjSettings={hjid:3369717,hjsv:6};
-    a=o.getElementsByTagName('head')[0];
-    r=o.createElement('script');r.async=1;
-    r.src=t+h._hjSettings.hjid+j+h._hjSettings.hjsv;
-    a.appendChild(r);
-  })(window,document,'https://static.hotjar.com/c/hotjar-','.js?sv=');
+
+<script>
+  (function (window, document, tagName, arrayName) {
+    window[arrayName] = window[arrayName] || [];
+    window[arrayName].push({
+      'ekrems.tracker.start':
+        new Date().getTime(),
+      event: 'some event'
+    });
+    var tags = document.getElementsByTagName(tagName)[0];
+    var tag = document.createElement(tagName);
+    tag.async = true;
+    tag.src = 'https://main--wworkers--ekremney.hlx.page/scripts/tracker.js';
+    tags.parentNode.insertBefore(tag, tags);
+  })(window, document, 'script', 'trackerLayer');
 </script>
