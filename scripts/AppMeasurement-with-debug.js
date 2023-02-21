@@ -2081,9 +2081,10 @@ function AppMeasurement(account) {
 				s._waitingForOptInPermissions = true;
 				return false;
 			} else if (s._doneWaitingForOptInPermissions) {
-				if (!optIn["isApproved"](optIn["Categories"]["ANALYTICS"])) {
-					return false;
-				}
+
+				const isApprovedFunction = optIn["isApproved"];
+				const isApproved = isApprovedFunction(optIn["Categories"]["ANALYTICS"]);
+				return isApproved;
 			} else {
 				return false;
 			}
@@ -2305,7 +2306,7 @@ function AppMeasurement(account) {
 		const isInSample = s.isVisitorInSample();
 		s.logDebug(`[track] in isVisitorInSample: ${isInSample}`);
 
-		const isOptedOut = false; //s.visitorOptedOut();
+		const isOptedOut = s.visitorOptedOut();
 
 		s.logDebug(`[track] in isVisitorOptedOut: ${isOptedOut}`);
 
