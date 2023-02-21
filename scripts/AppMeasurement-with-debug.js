@@ -2314,6 +2314,7 @@ function AppMeasurement(account) {
 			// Make sure we have a fallback visitor ID if we don't already have an alternative
 			if (!s._hasVisitorID()) {
 				s.fid = s.getFallbackVisitorID();
+				s.logDebug(`[track] s.fid ${s.fid}`);
 			}
 
 			// Prepare link tracking information before doPlugins so it can be reviewed and optionaly altered
@@ -2385,7 +2386,7 @@ function AppMeasurement(account) {
 					}
 
 					// Fill in technology
-					s.handleTechnology();
+					// s.handleTechnology();
 
 					s._recordConfigurationProblems();
 
