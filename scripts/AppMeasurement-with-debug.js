@@ -30,6 +30,7 @@ More info available at http://www.adobe.com/marketing-cloud.html
 * @noalias
 *********************************************************************/
 function AppMeasurement(account) {
+	debugger;
 	/**
 	  * @type {AppMeasurement}
 	  * @noalias
