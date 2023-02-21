@@ -1010,9 +1010,9 @@ function AppMeasurement(account) {
 			j,
 			k,
 			protocol;
-		
+
 		// Some objects contain a href object instead of a string (like SVG animations).
-		// Setting the href to be an empty string allows link tracking to occur, just without the url from the href. 
+		// Setting the href to be an empty string allows link tracking to occur, just without the url from the href.
 		// See AN-271185
 		if ( typeof href !== "string" ) {
 			href = "";
@@ -2267,6 +2267,7 @@ function AppMeasurement(account) {
 	 *      The Nothing
 	 *********************************************************************/
 	s._trackReady = function(variableOverrides) {
+		s.logDebug("[track] in _trackReady");
 		var
 			tm = new Date,
 			sed = Math.floor(Math.random() * 10000000000000),
@@ -2291,9 +2292,15 @@ function AppMeasurement(account) {
 			variableOverridesBackup = s.variableOverridesApply(variableOverrides, 1);
 		}
 
+		const isInSample = s.isVisitorInSample();
+		const isOptedOut = s.visitorOptedOut();
+
+		s.logDebug(`[track] in isVisitorInSample: ${isInSample}`);
+		s.logDebug(`[track] in isVisitorOptedOut: ${isOptedOut}`);
 
 		// Do visitor-sampling, and don't track visitors who opt-out
-		if (s.isVisitorInSample() && !s.visitorOptedOut) {
+		if (isInSample && !isOptedOut) {
+			s.logDebug("[track] visitor in sample and not opted out");
 			// Make sure we have a fallback visitor ID if we don't already have an alternative
 			if (!s._hasVisitorID()) {
 				s.fid = s.getFallbackVisitorID();
@@ -2394,6 +2401,7 @@ function AppMeasurement(account) {
 		// In the case where the referrer is set, but the hit is not sent, we need
 		// to save the referrer for the next hit. The referrer is blanked out in
 		// _resetTransientVariables.
+		s.logDebug("[track] referrer is set but hint is not");
 		if (s.referrer) {
 			s._referrerForNextHit = s.referrer;
 		}
