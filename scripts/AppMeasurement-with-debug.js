@@ -2029,21 +2029,26 @@ function AppMeasurement(account) {
 		// ready checks because that will fire off actions that we don't want to
 		// happen when the browser window isn't visible
 		if (!s._isDocumentVisible()) {
+			s.logDebug("[track] not ready to track: document is not visible");
 			return false;
 		}
 		// Need to wait for Opt-In Permissions
 		if (!s._isAnalyticsApproved()) {
+			s.logDebug("[track] not ready to track: analytics is not approved");
 			return false;
 		}
 		if (!s._isIdServiceReady()) {
+			s.logDebug("[track] not ready to track: service is not ready");
 			readyToTrack = false;
 		}
 
 		if (!s._modulesReady()) {
+			s.logDebug("[track] not ready to track: modules not ready");
 			readyToTrack = false;
 		}
 
 		if (!s._clientHintsReady()) {
+			s.logDebug("[track] not ready to track: client hints not ready");
 			readyToTrack = false;
 		}
 
