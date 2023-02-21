@@ -2034,7 +2034,7 @@ function AppMeasurement(account) {
 		}
 		// Need to wait for Opt-In Permissions
 		if (!s._isAnalyticsApproved()) {
-			s.logDebug("[track] not ready to track: analytics is not approved");
+			// s.logDebug("[track] not ready to track: analytics is not approved");
 			return false;
 		}
 		if (!s._isIdServiceReady()) {
@@ -2072,21 +2072,21 @@ function AppMeasurement(account) {
 	};
 
 	s._isAnalyticsApproved = function() {
-		// var optIn = s._getOptInInstance();
+		var optIn = s._getOptInInstance();
 		// s.logDebug(`[track] optIn: ${JSON.stringify(optIn)}`);
-		// if (optIn) {
-		// 	if (!s._doneWaitingForOptInPermissions && !s._waitingForOptInPermissions) {
-		// 		optIn["fetchPermissions"](s._optInFetchPermissionsCallback, true);
-		// 		s._waitingForOptInPermissions = true;
-		// 		return false;
-		// 	} else if (s._doneWaitingForOptInPermissions) {
-		// 		if (!optIn["isApproved"](optIn["Categories"]["ANALYTICS"])) {
-		// 			return false;
-		// 		}
-		// 	} else {
-		// 		return false;
-		// 	}
-		// }
+		if (optIn) {
+			if (!s._doneWaitingForOptInPermissions && !s._waitingForOptInPermissions) {
+				optIn["fetchPermissions"](s._optInFetchPermissionsCallback, true);
+				s._waitingForOptInPermissions = true;
+				return false;
+			} else if (s._doneWaitingForOptInPermissions) {
+				if (!optIn["isApproved"](optIn["Categories"]["ANALYTICS"])) {
+					return false;
+				}
+			} else {
+				return false;
+			}
+		}
 		return true;
 	};
 
