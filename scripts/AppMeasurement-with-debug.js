@@ -2039,7 +2039,8 @@ function AppMeasurement(account) {
 		}
 		if (!s._isIdServiceReady()) {
 			s.logDebug("[track] not ready to track: service is not ready");
-			readyToTrack = false;
+			// readyToTrack = false;
+			readyToTrack = true;
 		}
 
 		if (!s._modulesReady()) {
