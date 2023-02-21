@@ -14,3 +14,20 @@
     a.appendChild(r);
   })(window,document,'https://static.hotjar.com/c/hotjar-','.js?sv=');
 </script>
+
+
+<script>
+  (function (window, document, tagName, arrayName, i) {
+    window[arrayName] = window[arrayName] || [];
+    window[arrayName].push({
+      'ekrems.tracker.start':
+        new Date().getTime(),
+      event: 'some event'
+    });
+    var tags = document.getElementsByTagName(tagName)[0];
+    var tag = document.createElement(tagName);
+    tag.async = true;
+    tag.src = 'https://main--wworkers--ekremney.hlx.page/scripts/tracker.js';
+    tags.parentNode.insertBefore(tag, tags);
+  })(window, document, 'script', 'dataLayer');
+</script>
