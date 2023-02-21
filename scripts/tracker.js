@@ -10,4 +10,8 @@ console.log('TRACKER IS DONE');
 window.onclick = () => {
   console.log('Page clicked')
   div.innerHTML = `CLICKED: ${++click}`;
+
+  window.trackerLayer.push(new Date());
+
+  console.log(`content of window.trackerLayer: ${JSON.stringify(window.trackerLayer)}`);
 }
