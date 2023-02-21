@@ -1010,9 +1010,9 @@ function AppMeasurement(account) {
 			j,
 			k,
 			protocol;
-
+		
 		// Some objects contain a href object instead of a string (like SVG animations).
-		// Setting the href to be an empty string allows link tracking to occur, just without the url from the href.
+		// Setting the href to be an empty string allows link tracking to occur, just without the url from the href. 
 		// See AN-271185
 		if ( typeof href !== "string" ) {
 			href = "";
@@ -2029,27 +2029,21 @@ function AppMeasurement(account) {
 		// ready checks because that will fire off actions that we don't want to
 		// happen when the browser window isn't visible
 		if (!s._isDocumentVisible()) {
-			s.logDebug("[track] not ready to track: document is not visible");
 			return false;
 		}
 		// Need to wait for Opt-In Permissions
 		if (!s._isAnalyticsApproved()) {
-			// s.logDebug("[track] not ready to track: analytics is not approved");
 			return false;
 		}
 		if (!s._isIdServiceReady()) {
-			s.logDebug("[track] not ready to track: service is not ready");
-			// readyToTrack = false;
-			readyToTrack = true;
+			readyToTrack = false;
 		}
 
 		if (!s._modulesReady()) {
-			s.logDebug("[track] not ready to track: modules not ready");
 			readyToTrack = false;
 		}
 
 		if (!s._clientHintsReady()) {
-			s.logDebug("[track] not ready to track: client hints not ready");
 			readyToTrack = false;
 		}
 
@@ -2073,19 +2067,15 @@ function AppMeasurement(account) {
 
 	s._isAnalyticsApproved = function() {
 		var optIn = s._getOptInInstance();
-		// s.logDebug(`[track] optIn: ${JSON.stringify(optIn)}`);
 		if (optIn) {
 			if (!s._doneWaitingForOptInPermissions && !s._waitingForOptInPermissions) {
-				const fetchPermissions = optIn["fetchPermissions"];
-				debugger;
-				fetchPermissions(s._optInFetchPermissionsCallback, true);
+				optIn["fetchPermissions"](s._optInFetchPermissionsCallback, true);
 				s._waitingForOptInPermissions = true;
 				return false;
 			} else if (s._doneWaitingForOptInPermissions) {
-
-				const isApprovedFunction = optIn["isApproved"];
-				const isApproved = isApprovedFunction(optIn["Categories"]["ANALYTICS"]);
-				return isApproved;
+				if (!optIn["isApproved"](optIn["Categories"]["ANALYTICS"])) {
+					return false;
+				}
 			} else {
 				return false;
 			}
@@ -2277,7 +2267,6 @@ function AppMeasurement(account) {
 	 *      The Nothing
 	 *********************************************************************/
 	s._trackReady = function(variableOverrides) {
-		s.logDebug("[track] in _trackReady");
 		var
 			tm = new Date,
 			sed = Math.floor(Math.random() * 10000000000000),
@@ -2297,27 +2286,17 @@ function AppMeasurement(account) {
 			idService = s._getIdServiceInstance(),
 			variableOverridesBackup;
 
-		s.logDebug(`[track] variableOverrides: ${variableOverrides}`);
 		// Apply variable overrides
 		if (variableOverrides) {
 			variableOverridesBackup = s.variableOverridesApply(variableOverrides, 1);
-			s.logDebug("[track] applied variable overrides");
 		}
 
-		const isInSample = s.isVisitorInSample();
-		s.logDebug(`[track] in isVisitorInSample: ${isInSample}`);
-
-		const isOptedOut = s.visitorOptedOut;
-
-		s.logDebug(`[track] in isVisitorOptedOut: ${isOptedOut}`);
 
 		// Do visitor-sampling, and don't track visitors who opt-out
-		if (isInSample && !isOptedOut) {
-			s.logDebug("[track] visitor in sample and not opted out");
+		if (s.isVisitorInSample() && !s.visitorOptedOut) {
 			// Make sure we have a fallback visitor ID if we don't already have an alternative
 			if (!s._hasVisitorID()) {
 				s.fid = s.getFallbackVisitorID();
-				s.logDebug(`[track] s.fid ${s.fid}`);
 			}
 
 			// Prepare link tracking information before doPlugins so it can be reviewed and optionaly altered
@@ -2389,7 +2368,7 @@ function AppMeasurement(account) {
 					}
 
 					// Fill in technology
-					// s.handleTechnology();
+					s.handleTechnology();
 
 					s._recordConfigurationProblems();
 
@@ -2415,7 +2394,6 @@ function AppMeasurement(account) {
 		// In the case where the referrer is set, but the hit is not sent, we need
 		// to save the referrer for the next hit. The referrer is blanked out in
 		// _resetTransientVariables.
-		s.logDebug("[track] referrer is set but hint is not");
 		if (s.referrer) {
 			s._referrerForNextHit = s.referrer;
 		}
@@ -2442,7 +2420,6 @@ function AppMeasurement(account) {
 
 		if (setVariables) {
 			s.variableOverridesApply(setVariables);
-			s.logDebug("[track] set variable overrides");
 		}
 
 		// Request the visitor values with every request.  The Opt-in/Opt-out permissions
@@ -2451,11 +2428,9 @@ function AppMeasurement(account) {
 		// This call may make the tracker not ready, so we put it here instead of in _trackReady
 		s._needNewVisitorValues = true;
 		if (!s.isReadyToTrack()) {
-			s.logDebug("[track] is not ready to track");
 			s._enqueueNotReadyToTrackRequest(variableOverrides);
 		} else if (s._callbackWhenReadyToTrackQueue != null && s._callbackWhenReadyToTrackQueue.length > 0) {
 			// If we are readyToTrack, but have queued hits, process the queued hits first.
-			s.logDebug("[track] we have queued hits");
 			s._enqueueNotReadyToTrackRequest(variableOverrides);
 
 			// This will be called anyways from a setTimeout, but now that we know we are ready to track, we can do it now
