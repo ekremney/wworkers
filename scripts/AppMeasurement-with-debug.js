@@ -30,7 +30,6 @@ More info available at http://www.adobe.com/marketing-cloud.html
 * @noalias
 *********************************************************************/
 function AppMeasurement(account) {
-	debugger;
 	/**
 	  * @type {AppMeasurement}
 	  * @noalias
@@ -2308,7 +2307,7 @@ function AppMeasurement(account) {
 		const isInSample = s.isVisitorInSample();
 		s.logDebug(`[track] in isVisitorInSample: ${isInSample}`);
 
-		const isOptedOut = s.visitorOptedOut();
+		const isOptedOut = s.visitorOptedOut;
 
 		s.logDebug(`[track] in isVisitorOptedOut: ${isOptedOut}`);
 
