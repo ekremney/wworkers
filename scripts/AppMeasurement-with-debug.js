@@ -2294,9 +2294,9 @@ function AppMeasurement(account) {
 			idService = s._getIdServiceInstance(),
 			variableOverridesBackup;
 
+		s.logDebug(`[track] variableOverrides: ${variableOverrides}`);
 		// Apply variable overrides
 		if (variableOverrides) {
-			s.logDebug("[track] applying variable overrides");
 			variableOverridesBackup = s.variableOverridesApply(variableOverrides, 1);
 			s.logDebug("[track] applied variable overrides");
 		}
