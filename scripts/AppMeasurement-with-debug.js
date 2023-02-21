@@ -2428,6 +2428,7 @@ function AppMeasurement(account) {
 
 		if (setVariables) {
 			s.variableOverridesApply(setVariables);
+			s.logDebug("[track] set variable overrides");
 		}
 
 		// Request the visitor values with every request.  The Opt-in/Opt-out permissions
@@ -2436,9 +2437,11 @@ function AppMeasurement(account) {
 		// This call may make the tracker not ready, so we put it here instead of in _trackReady
 		s._needNewVisitorValues = true;
 		if (!s.isReadyToTrack()) {
+			s.logDebug("[track] is not ready to track");
 			s._enqueueNotReadyToTrackRequest(variableOverrides);
 		} else if (s._callbackWhenReadyToTrackQueue != null && s._callbackWhenReadyToTrackQueue.length > 0) {
 			// If we are readyToTrack, but have queued hits, process the queued hits first.
+			s.logDebug("[track] we have queued hits");
 			s._enqueueNotReadyToTrackRequest(variableOverrides);
 
 			// This will be called anyways from a setTimeout, but now that we know we are ready to track, we can do it now
