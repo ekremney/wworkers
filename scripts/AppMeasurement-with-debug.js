@@ -2107,6 +2107,7 @@ function AppMeasurement(account) {
 			return true;
 		}
 		if (s._needNewVisitorValues) {
+			s.logDebug('no need for new visitor values')
 			s._needNewVisitorValues = false;
 			if (!s._waitingForVisitorValues) {
 				s._waitingForVisitorValues = true;
