@@ -2304,7 +2304,7 @@ function AppMeasurement(account) {
 		const isInSample = s.isVisitorInSample();
 		s.logDebug(`[track] in isVisitorInSample: ${isInSample}`);
 
-		const isOptedOut = s.visitorOptedOut();
+		const isOptedOut = false; //s.visitorOptedOut();
 
 		s.logDebug(`[track] in isVisitorOptedOut: ${isOptedOut}`);
 
