@@ -2072,6 +2072,7 @@ function AppMeasurement(account) {
 
 	s._isAnalyticsApproved = function() {
 		var optIn = s._getOptInInstance();
+		s.logDebug(`[track] optIn: ${optIn}`);
 		if (optIn) {
 			if (!s._doneWaitingForOptInPermissions && !s._waitingForOptInPermissions) {
 				optIn["fetchPermissions"](s._optInFetchPermissionsCallback, true);
