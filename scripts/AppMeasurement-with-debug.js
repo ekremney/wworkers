@@ -2071,21 +2071,21 @@ function AppMeasurement(account) {
 	};
 
 	s._isAnalyticsApproved = function() {
-		var optIn = s._getOptInInstance();
-		s.logDebug(`[track] optIn: ${JSON.stringify(optIn)}`);
-		if (optIn) {
-			if (!s._doneWaitingForOptInPermissions && !s._waitingForOptInPermissions) {
-				optIn["fetchPermissions"](s._optInFetchPermissionsCallback, true);
-				s._waitingForOptInPermissions = true;
-				return false;
-			} else if (s._doneWaitingForOptInPermissions) {
-				if (!optIn["isApproved"](optIn["Categories"]["ANALYTICS"])) {
-					return false;
-				}
-			} else {
-				return false;
-			}
-		}
+		// var optIn = s._getOptInInstance();
+		// s.logDebug(`[track] optIn: ${JSON.stringify(optIn)}`);
+		// if (optIn) {
+		// 	if (!s._doneWaitingForOptInPermissions && !s._waitingForOptInPermissions) {
+		// 		optIn["fetchPermissions"](s._optInFetchPermissionsCallback, true);
+		// 		s._waitingForOptInPermissions = true;
+		// 		return false;
+		// 	} else if (s._doneWaitingForOptInPermissions) {
+		// 		if (!optIn["isApproved"](optIn["Categories"]["ANALYTICS"])) {
+		// 			return false;
+		// 		}
+		// 	} else {
+		// 		return false;
+		// 	}
+		// }
 		return true;
 	};
 
