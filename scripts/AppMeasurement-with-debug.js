@@ -2035,11 +2035,11 @@ function AppMeasurement(account) {
 		// Need to wait for Opt-In Permissions
 		if (!s._isAnalyticsApproved()) {
 			s.logDebug("[track] not ready to track: analytics is not approved");
-			return true;
+			return false;
 		}
 		if (!s._isIdServiceReady()) {
 			s.logDebug("[track] not ready to track: service is not ready");
-			readyToTrack = true;
+			readyToTrack = false;
 		}
 
 		if (!s._modulesReady()) {
