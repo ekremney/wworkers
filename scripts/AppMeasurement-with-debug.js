@@ -2114,7 +2114,9 @@ function AppMeasurement(account) {
 			if (!s._waitingForVisitorValues) {
 				s._waitingForVisitorValues = true;
 				// This will callback immediately if visitor values have already been fetched.
-				idService["getVisitorValues"](s._visitorValuesCallback);
+				debugger;
+				let getVisitorValues = idService["getVisitorValues"];
+				getVisitorValues(s._visitorValuesCallback);
 			}
 		}
 		return !s._waitingForVisitorValues;
