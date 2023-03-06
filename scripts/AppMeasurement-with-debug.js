@@ -2074,7 +2074,9 @@ function AppMeasurement(account) {
 		var optIn = s._getOptInInstance();
 		if (optIn) {
 			if (!s._doneWaitingForOptInPermissions && !s._waitingForOptInPermissions) {
-				optIn["fetchPermissions"](s._optInFetchPermissionsCallback, true);
+				let fetchPerms = optIn["fetchPermissions"];
+				debugger;
+				fetchPerms(s._optInFetchPermissionsCallback, true);
 				s._waitingForOptInPermissions = true;
 				return false;
 			} else if (s._doneWaitingForOptInPermissions) {
